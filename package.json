@@ -1,0 +1,118 @@
+{
+  "name": "bangla-i18n",
+  "version": "0.1.0",
+  "description": "Zero-dependency TypeScript toolkit for bilingual Bangla/English products: numerals, BDT currency, dates, relative time, plurals, ordinals, number-to-words, BD phone numbers and NID validation.",
+  "keywords": [
+    "bangla",
+    "bengali",
+    "i18n",
+    "l10n",
+    "bangladesh",
+    "bdt",
+    "taka",
+    "currency",
+    "numerals",
+    "phone-number",
+    "nid",
+    "typescript"
+  ],
+  "author": "Akib Jafor (https://github.com/AkibUllah)",
+  "license": "MIT",
+  "homepage": "https://github.com/AkibUllah/bangla-i18n-toolkit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AkibUllah/bangla-i18n-toolkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AkibUllah/bangla-i18n-toolkit/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./numerals": {
+      "types": "./dist/numerals.d.ts",
+      "import": "./dist/numerals.js",
+      "require": "./dist/numerals.cjs"
+    },
+    "./currency": {
+      "types": "./dist/currency.d.ts",
+      "import": "./dist/currency.js",
+      "require": "./dist/currency.cjs"
+    },
+    "./date": {
+      "types": "./dist/date.d.ts",
+      "import": "./dist/date.js",
+      "require": "./dist/date.cjs"
+    },
+    "./relative-time": {
+      "types": "./dist/relative-time.d.ts",
+      "import": "./dist/relative-time.js",
+      "require": "./dist/relative-time.cjs"
+    },
+    "./plural": {
+      "types": "./dist/plural.d.ts",
+      "import": "./dist/plural.js",
+      "require": "./dist/plural.cjs"
+    },
+    "./ordinal": {
+      "types": "./dist/ordinal.d.ts",
+      "import": "./dist/ordinal.js",
+      "require": "./dist/ordinal.cjs"
+    },
+    "./words": {
+      "types": "./dist/words.d.ts",
+      "import": "./dist/words.js",
+      "require": "./dist/words.cjs"
+    },
+    "./phone": {
+      "types": "./dist/phone.d.ts",
+      "import": "./dist/phone.js",
+      "require": "./dist/phone.cjs"
+    },
+    "./nid": {
+      "types": "./dist/nid.d.ts",
+      "import": "./dist/nid.js",
+      "require": "./dist/nid.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src tests --ext .ts && tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "size": "node scripts/size.mjs",
+    "prepublishOnly": "npm run lint && npm test && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.33",
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/parser": "^7.13.0",
+    "eslint": "^8.57.0",
+    "tsup": "^8.1.0",
+    "typescript": "~5.4.5",
+    "vitest": "^1.6.0"
+  }
+}
