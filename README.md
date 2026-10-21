@@ -10,6 +10,14 @@ Zero-dependency TypeScript toolkit for products that speak both Bangla and Engli
 ![zero dependencies](https://img.shields.io/badge/dependencies-0-success)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+## Try it live
+
+| | |
+|---|---|
+| Live demo | https://akibullah.github.io/bangla-i18n-toolkit/ — an interactive playground that runs the built ESM bundle in your browser: type a number, date, phone or NID and see every formatter's output in English and Bangla |
+| Run in your browser | [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/AkibUllah/bangla-i18n-toolkit?quickstart=1) — installs dependencies, builds `dist/` and serves the same playground on the forwarded port 4173 |
+| Local | `npm ci && npm run site && npx serve _site` (see Quick Start) |
+
 ## Why this exists
 
 Every fintech, e-commerce and POS product I have shipped in Bangladesh needed the same handful of helpers: show ৳1,23,456.78 with lakh/crore grouping, print "এক হাজার দুইশত পঞ্চাশ টাকা মাত্র" on an invoice, accept a phone number typed as `০১৭১২-৩৪৫৬৭৮` or `+880 1712 345678`, and validate a 10/13/17-digit NID before calling the verification API. `Intl` gets some of this right in some runtimes and nothing right in others, and each team ended up re-implementing the rest in a `utils/bn.ts`. This package is that file, done once, typed, tested and tree-shakeable.
@@ -84,6 +92,7 @@ npm test          # vitest
 npm run lint      # eslint + tsc --noEmit
 npm run build     # dist/ with ESM, CJS and types
 npm run size      # gzip size table of the bundles
+npm run site      # build + assemble the static playground into _site/
 ```
 
 Docker (runs lint, tests and build in a clean Node 18 image, then prints a sample):

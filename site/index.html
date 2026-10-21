@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>bangla-i18n playground</title>
+    <meta
+      name="description"
+      content="Try bangla-i18n in the browser: Bangla numerals, Taka formatting, dates, relative time, plurals, ordinals, number-to-words, BD phone numbers and NID checks."
+    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23006a4e'/%3E%3Ctext x='16' y='22' font-size='17' text-anchor='middle' fill='%23f42a41' font-family='sans-serif'%3E৳%3C/text%3E%3C/svg%3E" />
+    <style>
+      :root {
+        --bg: #f6f7f5;
+        --surface: #ffffff;
+        --surface-2: #eef2ee;
+        --text: #16211c;
+        --muted: #5b6963;
+        --border: #d8dfda;
+        --accent: #006a4e;
+        --accent-text: #ffffff;
+        --output: #0b3d2e;
+        --error: #b3261e;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #0f1512;
+          --surface: #161e1a;
+          --surface-2: #1e2823;
+          --text: #e6ebe8;
+          --muted: #9aa8a1;
+          --border: #2b3630;
+          --accent: #3cb08a;
+          --accent-text: #06130e;
+          --output: #b7e4d1;
+          --error: #ff8a80;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #0f1512;
+        --surface: #161e1a;
+        --surface-2: #1e2823;
+        --text: #e6ebe8;
+        --muted: #9aa8a1;
+        --border: #2b3630;
+        --accent: #3cb08a;
+        --accent-text: #06130e;
+        --output: #b7e4d1;
+        --error: #ff8a80;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Bengali", "Hind Siliguri", sans-serif;
+        padding: 0 16px 48px;
+      }
+      header, main, footer { max-width: 1040px; margin: 0 auto; }
+      header { padding: 32px 0 16px; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: flex-end; justify-content: space-between; }
+      h1 { margin: 0; font-size: 1.6rem; letter-spacing: -0.01em; }
+      h1 small { display: block; font-size: 0.95rem; font-weight: 400; color: var(--muted); margin-top: 4px; }
+      nav a { color: var(--accent); text-decoration: none; margin-left: 16px; font-weight: 500; }
+      nav a:hover { text-decoration: underline; }
+      .note { color: var(--muted); font-size: 0.9rem; margin: 0 0 20px; }
+      .note code { font-family: var(--mono); background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+      .toolbar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+      .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+      .seg button {
+        border: 0; background: var(--surface); color: var(--text); padding: 6px 14px; cursor: pointer; font: inherit;
+      }
+      .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+      section.card {
+        background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 18px 14px;
+        display: flex; flex-direction: column; gap: 10px;
+      }
+      section.card h2 { margin: 0; font-size: 1.05rem; }
+      section.card h2 code { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); font-weight: 400; margin-left: 6px; }
+      label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 3px; }
+      input, select {
+        width: 100%; font: inherit; color: var(--text); background: var(--surface-2); border: 1px solid var(--border);
+        border-radius: 8px; padding: 7px 10px;
+      }
+      input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+      .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      table.out { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 4px; }
+      table.out td { padding: 5px 0; border-top: 1px solid var(--border); vertical-align: top; }
+      table.out td:first-child { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); width: 46%; padding-right: 10px; word-break: break-all; }
+      table.out td:last-child { font-family: var(--mono); color: var(--output); word-break: break-word; }
+      table.out td.err { color: var(--error); }
+      footer { margin-top: 32px; color: var(--muted); font-size: 0.85rem; }
+      footer a { color: var(--accent); }
+      @media (max-width: 480px) { .row { grid-template-columns: 1fr; } header { padding-top: 24px; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>
+        bangla-i18n playground
+        <small>Zero-dependency TypeScript toolkit for bilingual Bangla/English products, running from the built ESM bundle.</small>
+      </h1>
+      <nav>
+        <a href="https://github.com/AkibUllah/bangla-i18n-toolkit">GitHub</a>
+        <a href="https://github.com/AkibUllah/bangla-i18n-toolkit#usage">API docs</a>
+        <a href="https://codespaces.new/AkibUllah/bangla-i18n-toolkit?quickstart=1">Open in Codespaces</a>
+      </nav>
+    </header>
+
+    <main>
+      <p class="note">
+        Every result below is computed in your browser by <code>dist/index.js</code>, the same file <code>npm install bangla-i18n</code> would give you.
+        Edit any field and the outputs update.
+      </p>
+
+      <div class="toolbar">
+        <span>Locale</span>
+        <div class="seg" role="group" aria-label="Locale">
+          <button type="button" data-locale="en" aria-pressed="true">English</button>
+          <button type="button" data-locale="bn" aria-pressed="false">বাংলা</button>
+        </div>
+      </div>
+
+      <div class="grid" id="playground">
+        <section class="card" data-demo="numerals">
+          <h2>Numerals <code>bangla-i18n/numerals</code></h2>
+          <div>
+            <label for="numerals-input">Text or number</label>
+            <input id="numerals-input" value="Order #1023 · ৳১,২৩,৪৫৬.৭৮" />
+          </div>
+          <table class="out"><tbody></tbody></table>
+        </section>
+
+        <section class="card" data-demo="currency">
+          <h2>Currency <code>bangla-i18n/currency</code></h2>
+          <div class="row">
+            <div>
+              <label for="currency-amount">Amount (BDT)</label>
+              <input id="currency-amount" type="number" step="any" value="123456.78" />
+            </div>
+            <div>
+              <label for="currency-symbol">Symbol</label>
+              <select id="currency-symbol">
+                <option value="sign">sign (৳)</option>
+                <option value="code">code (BDT)</option>
+                <option value="word">word (টাকা / Tk)</option>
+                <option value="none">none</option>
+              </select>
+            </div>
+          </div>
+          <table class="out"><tbody></tbody></table>
+        </section>
+
+        <section class="card" data-demo="date">
+          <h2>Dates &amp; relative time <code>bangla-i18n/date</code></h2>
+          <div class="row">
+            <div>
+              <label for="date-input">Date and time</label>
+              <input id="date-input" type="datetime-local" />
+            </div>
+            <div>
+              <label for="date-pattern">Pattern</label>
+              <input id="date-pattern" value="dddd, D MMMM YYYY h:mm A" />
+            </div>
+          </div>
+          <table class="out"><tbody></tbody></table>
+        </section>
+
+        <section class="card" data-demo="plural">
+          <h2>Plurals &amp; ordinals <code>bangla-i18n/plural · /ordinal</code></h2>
+          <div class="row">
+            <div>
+              <label for="plural-count">Count</label>
+              <input id="plural-count" type="number" step="1" value="3" />
+            </div>
+            <div>
+              <label for="plural-noun">Noun (English singular / Bangla)</label>
+              <input id="plural-noun" value="order / অর্ডার" />
+            </div>
+          </div>
+          <table class="out"><tbody></tbody></table>
+        </section>
+
+        <section class="card" data-demo="words">
+          <h2>Number to words <code>bangla-i18n/words</code></h2>
+          <div class="row">
+            <div>
+              <label for="words-amount">Amount</label>
+              <input id="words-amount" type="number" step="any" value="1250000.5" />
+            </div>
+            <div>
+              <label for="words-system">Numbering system (English only)</label>
+              <select id="words-system">
+                <option value="indian">indian (lakh / crore)</option>
+                <option value="western">western (million / billion)</option>
+              </select>
+            </div>
+          </div>
+          <table class="out"><tbody></tbody></table>
+        </section>
+
+        <section class="card" data-demo="phone">
+          <h2>Phone numbers <code>bangla-i18n/phone</code></h2>
+          <div>
+            <label for="phone-input">Bangladeshi mobile number (any digits, any format)</label>
+            <input id="phone-input" value="+880 1712-345678" />
+          </div>
+          <table class="out"><tbody></tbody></table>
+        </section>
+
+        <section class="card" data-demo="nid">
+          <h2>National ID <code>bangla-i18n/nid</code></h2>
+          <div>
+            <label for="nid-input">NID (10, 13 or 17 digits)</label>
+            <input id="nid-input" value="19901234567890123" />
+          </div>
+          <table class="out"><tbody></tbody></table>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      Structural checks only: NID and phone validation stop obviously wrong input, they do not confirm a number exists.
+      MIT licensed · <a href="https://github.com/AkibUllah/bangla-i18n-toolkit">AkibUllah/bangla-i18n-toolkit</a>
+    </footer>
+
+    <script type="module" src="./playground.js"></script>
+  </body>
+</html>

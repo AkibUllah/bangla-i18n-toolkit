@@ -1,0 +1,25 @@
+{
+  "name": "bangla-i18n-toolkit",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-18-bookworm",
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "4gb"
+  },
+  "postCreateCommand": "npm ci --no-audit --no-fund && npm run site",
+  "postStartCommand": "nohup npx --yes serve@14 -l 4173 _site > /tmp/serve.log 2>&1 &",
+  "forwardPorts": [4173],
+  "portsAttributes": {
+    "4173": {
+      "label": "bangla-i18n playground",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "vitest.explorer"
+      ]
+    }
+  }
+}
