@@ -1,3 +1,4 @@
+<!-- topics: typescript,i18n,bangla,bengali,bangladesh,currency-formatting,localization,npm-package,zero-dependency -->
 # bangla-i18n
 
 Zero-dependency TypeScript toolkit for products that speak both Bangla and English: numerals, Taka formatting, dates, relative time, plurals, ordinals, number-to-words, Bangladeshi phone numbers and NID checks.
