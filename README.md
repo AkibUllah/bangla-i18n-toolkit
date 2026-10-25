@@ -4,6 +4,8 @@
 Zero-dependency TypeScript toolkit for products that speak both Bangla and English: numerals, Taka formatting, dates, relative time, plurals, ordinals, number-to-words, Bangladeshi phone numbers and NID checks.
 
 [![CI](https://github.com/AkibUllah/bangla-i18n-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/AkibUllah/bangla-i18n-toolkit/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/AkibUllah/bangla-i18n-toolkit/actions/workflows/codeql.yml/badge.svg)](https://github.com/AkibUllah/bangla-i18n-toolkit/actions/workflows/codeql.yml)
+[![Release](https://img.shields.io/github/v/release/AkibUllah/bangla-i18n-toolkit)](https://github.com/AkibUllah/bangla-i18n-toolkit/releases)
 ![TypeScript 5.4](https://img.shields.io/badge/TypeScript-5.4-3178c6?logo=typescript&logoColor=white)
 ![Node >= 18](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)
 ![ESM + CJS](https://img.shields.io/badge/module-ESM%20%2B%20CJS-f7df1e)
@@ -17,6 +19,20 @@ Zero-dependency TypeScript toolkit for products that speak both Bangla and Engli
 | Live demo | https://akibullah.github.io/bangla-i18n-toolkit/ — an interactive playground that runs the built ESM bundle in your browser: type a number, date, phone or NID and see every formatter's output in English and Bangla |
 | Run in your browser | [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/AkibUllah/bangla-i18n-toolkit?quickstart=1) — installs dependencies, builds `dist/` and serves the same playground on the forwarded port 4173 |
 | Local | `npm ci && npm run site && npx serve _site` (see Quick Start) |
+
+## Screenshots
+
+![Changing the amount, switching the playground to Bangla and trying dates, number-to-words and a phone number](docs/images/demo.gif)
+
+*Live playground: edit an amount, switch the locale to Bangla, then walk through dates, number-to-words and phone helpers.*
+
+![Playground in English showing numerals, currency and date outputs](docs/images/playground-en.png)
+
+*English locale: digit conversion, Taka formatting with lakh/crore grouping, dates and relative time.*
+
+![Playground in Bangla with Bangla digits, Taka amounts and Bangla dates](docs/images/playground-bn.png)
+
+*Bangla locale: the same functions with Bangla digits, month and weekday names and day periods.*
 
 ## Why this exists
 
@@ -282,11 +298,11 @@ npm test
 
 ## Roadmap
 
-- Bangla calendar (বঙ্গাব্দ) conversion with the 2019 Bangladesh revision.
-- `Intl.NumberFormat`-compatible `formatToParts` output for custom rendering.
-- Locale packs so `hi`/`ur` numerals and grouping can reuse the same formatters.
-- A small React hook package (`useLocale`) that wires `digits`/`locale` through context.
-- Property-based tests for the parse/format round trip.
+- [ ] Bangla calendar (বঙ্গাব্দ) conversion with the 2019 Bangladesh revision (#1)
+- [ ] `Intl.NumberFormat`-compatible `formatToParts` output for custom rendering (#2)
+- [ ] Locale packs so `hi`/`ur` numerals and grouping can reuse the same formatters (#3)
+- [ ] A small React hook package (`useLocale`) that wires `digits`/`locale` through context (#4)
+- [ ] Property-based tests for the parse/format round trip (#5)
 
 ## License
 
