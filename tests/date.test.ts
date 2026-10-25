@@ -71,6 +71,15 @@ describe('formatDate', () => {
     expect(formatDate(independenceDay, '[YYYY]')).toBe('YYYY');
   });
 
+  it('handles unbalanced brackets in linear time', () => {
+    const pattern = '[\\'.repeat(20000);
+    const started = performance.now();
+    const out = formatDate(independenceDay, pattern);
+    expect(performance.now() - started).toBeLessThan(500);
+    expect(out.length).toBeGreaterThan(0);
+    expect(formatDate(independenceDay, '[[YYYY] YYYY')).toBe('[YYYY 2026');
+  });
+
   it('accepts timestamps and ISO strings', () => {
     expect(formatDate(independenceDay.getTime(), 'D/M/YYYY')).toBe('26/3/2026');
     expect(formatDate('2026-03-26T00:00:00', 'DD MMM')).toBe('26 Mar');

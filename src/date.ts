@@ -85,7 +85,8 @@ export function getBanglaDayPeriod(hour: number): BanglaDayPeriod {
   return 'রাত';
 }
 
-const TOKEN_RE = /\[([^\]]*)\]|YYYY|YY|MMMM|MMM|MM|M|DD|D|dddd|ddd|HH|H|hh|h|mm|m|ss|s|A|a/g;
+// Literals cannot contain `[`, which keeps matching linear on unbalanced input like `[[[[`.
+const TOKEN_RE = /\[([^[\]]*)\]|YYYY|YY|MMMM|MMM|MM|M|DD|D|dddd|ddd|HH|H|hh|h|mm|m|ss|s|A|a/g;
 
 /**
  * Format a date with a Moment/Day.js-style token pattern, localised to
