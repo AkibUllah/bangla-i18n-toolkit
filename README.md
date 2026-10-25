@@ -111,7 +111,7 @@ npm run size      # gzip size table of the bundles
 npm run site      # build + assemble the static playground into _site/
 ```
 
-Docker (runs lint, tests and build in a clean Node 18 image, then prints a sample):
+Docker (runs lint, tests and build in a clean `node:26-alpine` image, then prints a sample):
 
 ```bash
 docker build -t bangla-i18n .
@@ -183,7 +183,7 @@ formatRelativeTime(yesterday);                        // 'yesterday'
 formatRelativeTime(yesterday, { numeric: 'always' }); // '1 day ago'
 ```
 
-Tokens: `YYYY YY MMMM MMM MM M DD D dddd ddd HH H hh h mm m ss s A a`; literal text goes in `[brackets]`. Pass `now` in `formatRelativeTime` options for deterministic output in tests.
+Tokens: `YYYY YY MMMM MMM MM M DD D dddd ddd HH H hh h mm m ss s A a`; literal text goes in `[brackets]` (a literal cannot itself contain `[`). Pass `now` in `formatRelativeTime` options for deterministic output in tests.
 
 ### Plurals, classifiers and ordinals
 

@@ -1,6 +1,6 @@
 {
   "name": "bangla-i18n",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Zero-dependency TypeScript toolkit for bilingual Bangla/English products: numerals, BDT currency, dates, relative time, plurals, ordinals, number-to-words, BD phone numbers and NID validation.",
   "keywords": [
     "bangla",

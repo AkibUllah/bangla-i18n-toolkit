@@ -6,6 +6,12 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-25
+
+### Fixed
+
+- `formatDate` no longer takes quadratic time on patterns with many unbalanced `[` (flagged by CodeQL as a polynomial ReDoS). Bracketed literals can no longer contain `[`.
+
 ### Added
 
 - Screenshots and an animated walkthrough of the live playground in the README.
@@ -15,6 +21,7 @@ All notable changes to this project are documented here. The format follows
 ### Changed
 
 - CI workflow runs with a read-only `GITHUB_TOKEN` by default.
+- The Docker build image moved from `node:18-alpine` to `node:26-alpine`; the published package still supports Node 18+.
 
 ## [0.1.0] - 2026-10-20
 
@@ -33,5 +40,6 @@ All notable changes to this project are documented here. The format follows
 - CI on Node 18 and 20, Dockerfile for a reproducible build, gzip size report script.
 - Interactive playground on GitHub Pages running the built ESM bundle, and a Codespaces dev container.
 
-[Unreleased]: https://github.com/AkibUllah/bangla-i18n-toolkit/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/AkibUllah/bangla-i18n-toolkit/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/AkibUllah/bangla-i18n-toolkit/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/AkibUllah/bangla-i18n-toolkit/releases/tag/v0.1.0
